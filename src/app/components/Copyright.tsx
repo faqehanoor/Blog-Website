@@ -9,20 +9,15 @@ type Props = {
 const Copyright: React.FC<Props> = ({ blog }) => {
   const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
 
+  // Update the year once when the component mounts
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentYear(new Date().getFullYear());
-    }, 1000);
-
-    return () => {
-      clearInterval(intervalId);
-    };
+    setCurrentYear(new Date().getFullYear());
   }, []);
 
   return (
     <div>
       <p className="text-sm text-black font-bold">
-        &copy; Copyright {currentYear} {blog}. All rights reserved 
+        &copy; Copyright {currentYear} {blog}. All rights reserved
       </p>
     </div>
   );
