@@ -19,6 +19,7 @@
     "@types/react-dom": "^18.2.7",
     "postcss": "^8.4.24",
     "tailwindcss": "^3.4.1",
+    "autoprefixer": "^10.4.14", // Add autoprefixer here
     "typescript": "^5.2.2",
     "eslint": "^8.50.0",
     "eslint-config-next": "14.2.22"
