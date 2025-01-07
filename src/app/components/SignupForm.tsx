@@ -14,7 +14,8 @@ export const SignupForm: React.FC<SignupFormProps> = ({ setShowModal }) => {
   });
 
   const [status, setStatus] = useState('');
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>();
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -22,6 +23,10 @@ export const SignupForm: React.FC<SignupFormProps> = ({ setShowModal }) => {
       ...formData,
       [name]: value,
     });
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
   };
 
   const validateForm = () => {
@@ -75,42 +80,58 @@ export const SignupForm: React.FC<SignupFormProps> = ({ setShowModal }) => {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block font-bold text-black mb-2">Username</label>
+            <label className="block font-bold text-black mb-2" htmlFor="username">Username</label>
             <input
+              id="username"
               type="text"
               name="username"
               value={formData.username}
               onChange={handleInputChange}
               className="w-full p-2 rounded-md border border-gray-300"
               required
+              aria-describedby="username-error"
             />
-            {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
+            {errors?.username && <p id="username-error" className="text-red-500 text-sm">{errors.username}</p>}
           </div>
 
           <div>
-            <label className="block font-bold text-black mb-2">Email</label>
+            <label className="block font-bold text-black mb-2" htmlFor="email">Email</label>
             <input
+              id="email"
               type="email"
               name="email"
               value={formData.email}
               onChange={handleInputChange}
               className="w-full p-2 rounded-md border border-gray-300"
               required
+              aria-describedby="email-error"
             />
-            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+            {errors?.email && <p id="email-error" className="text-red-500 text-sm">{errors.email}</p>}
           </div>
 
           <div>
-            <label className="block font-bold text-black mb-2">Password</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              className="w-full p-2 rounded-md border border-gray-300"
-              required
-            />
-            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+            <label className="block font-bold text-black mb-2" htmlFor="password">Password</label>
+            <div className="relative">
+              <input
+                id="password"
+                type={passwordVisible ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                className="w-full p-2 rounded-md border border-gray-300"
+                required
+                aria-describedby="password-error"
+              />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute right-2 top-2 text-sm"
+                aria-label={passwordVisible ? "Hide password" : "Show password"}
+              >
+                {passwordVisible ? 'Hide' : 'Show'}
+              </button>
+            </div>
+            {errors?.password && <p id="password-error" className="text-red-500 text-sm">{errors.password}</p>}
           </div>
 
           <div className="flex justify-center">
@@ -124,7 +145,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ setShowModal }) => {
         </form>
 
         {/* Status */}
-        <div className="text-center mt-4">
+        <div className="text-center mt-4" role="alert" aria-live="polite">
           <p>{status}</p>
         </div>
 
