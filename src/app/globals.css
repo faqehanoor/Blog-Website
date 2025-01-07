@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*{
+  
+  background: url('temp_image_20250107_133055_787a1802-6b83-477b-af3d-a73f2d2e986e.jpg') no-repeat center center fixed;
+
+
+background-size: cover;
+
+  
+}
+
+
