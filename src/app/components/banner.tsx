@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Banner = () => {
   return (
-    <section className="text-bold text-white body-font bg-gradient-to-r from-pink-500 to-purple-500">
+    <section className="font-bold text-white body-font bg-gradient-to-r from-pink-500 to-purple-500">
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center">
           <h1 className="sm:text-3xl font-extrabold text-2xl title-font mb-2 text-white">
@@ -32,13 +32,15 @@ export const Banner = () => {
                     strokeWidth={2}
                     className="w-6 h-6"
                     viewBox="0 0 24 24"
+                    role="img"
+                    aria-label={item.term} // Added aria-label for accessibility
                   >
                     <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
                     <circle cx={12} cy={7} r={4} />
                   </svg>
                 </div>
                 <h2 className="text-lg text-gray-900 font-bold title-font mb-2">{item.term}</h2>
-                <p className="font-extrabold text-white text-base">{item.description}</p>
+                <p className="text-gray-900 text-base">{item.description}</p> {/* Changed to text-gray-900 for readability */}
               </div>
             </div>
           ))}
