@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SignupForm } from "./SignupForm";
 
 export const Header = () => {
@@ -10,12 +10,34 @@ export const Header = () => {
     setShowModal((prevState) => !prevState);
   };
 
+  // Close the modal when pressing Escape
+  useEffect(() => {
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setShowModal(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscapeKey);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscapeKey);
+    };
+  }, []);
+
+  // Close modal when clicking outside
+  const closeModalOnClickOutside = (event: React.MouseEvent) => {
+    if (event.target === event.currentTarget) {
+      setShowModal(false);
+    }
+  };
+
   return (
     <div>
       <header className="text-gray-600 body-font">
         <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
           <a href="/" className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-            <span className="ml-3 text-white font-bold text-2xl">Faqeha's Blog</span>
+            <span className="ml-3 text-white font-bold text-2xl">Faqeha&apos;s Blog</span> {/* Escape apostrophe */}
           </a>
 
           <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
@@ -56,7 +78,15 @@ export const Header = () => {
         </div>
       </header>
 
-      {showModal && <SignupForm id="signup-form-modal" setShowModal={setShowModal} />}
+      {showModal && (
+        <div
+          id="signup-form-modal"
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          onClick={closeModalOnClickOutside} // Close on outside click
+        >
+          <SignupForm id="signup-form-modal" setShowModal={setShowModal} />
+        </div>
+      )}
     </div>
   );
 };
