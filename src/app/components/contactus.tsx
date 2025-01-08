@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 
 const Contactus = () => {
@@ -25,11 +27,9 @@ const Contactus = () => {
       });
 
       if (response.ok) {
-        // Handle successful submission
         alert('Your message has been sent!');
         setFormData({ name: '', email: '', message: '' });
       } else {
-        // Handle error
         alert('There was an error submitting your message.');
       }
     } catch (error) {
@@ -40,7 +40,38 @@ const Contactus = () => {
 
   return (
     <section className="text-gray-600 body-font relative">
-      {/* ... rest of the form component */}
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="name">Name</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="message">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit">Send Message</button>
+      </form>
     </section>
   );
 };
