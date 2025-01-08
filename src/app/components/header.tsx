@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import React, { useState } from 'react';
-import { SignupForm } from './SignupForm';
+import React, { useState } from "react";
+import { SignupForm } from "./SignupForm";
 
 export const Header = () => {
   const [showModal, setShowModal] = useState(false);
 
-  const toggleModal = () => {
-    setShowModal(prevState => !prevState);
+  const handleModalToggle = () => {
+    setShowModal((prevState) => !prevState);
   };
 
   return (
@@ -19,16 +19,26 @@ export const Header = () => {
           </a>
 
           <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-            <a href="/" className="mr-5 text-2xl font-extrabold text-white hover:text-gray-900">Home</a>
-            <a href="/" className="mr-5 text-2xl font-extrabold text-white hover:text-gray-900">About</a>
-            <a href="/blog" className="mr-5 text-2xl font-extrabold text-white hover:text-gray-900">Blog</a>
-            <a href="/" className="mr-5 text-2xl font-extrabold text-white hover:text-gray-900">Contact</a>
+            <a href="/" className="mr-5 text-2xl font-extrabold text-white hover:text-gray-900">
+              Home
+            </a>
+            <a href="/about" className="mr-5 text-2xl font-extrabold text-white hover:text-gray-900">
+              About
+            </a>
+            <a href="/blog" className="mr-5 text-2xl font-extrabold text-white hover:text-gray-900">
+              Blog
+            </a>
+            <a href="/contact" className="mr-5 text-2xl font-extrabold text-white hover:text-gray-900">
+              Contact
+            </a>
           </nav>
 
           <button
-            onClick={toggleModal}
+            onClick={handleModalToggle}
             className="inline-flex items-center text-purple-600 font-bold bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
             aria-label="Sign up to join the blog community"
+            aria-expanded={showModal}
+            aria-controls="signup-form-modal"
           >
             Sign Up!
             <svg
@@ -46,7 +56,7 @@ export const Header = () => {
         </div>
       </header>
 
-      {showModal && <SignupForm setShowModal={setShowModal} />}
+      {showModal && <SignupForm id="signup-form-modal" setShowModal={setShowModal} />}
     </div>
   );
 };
